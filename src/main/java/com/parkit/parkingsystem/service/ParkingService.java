@@ -27,6 +27,7 @@ public class ParkingService {
         this.ticketDAO = ticketDAO;
     }
 
+    // prise en charge du véhicule et génération du ticket
     public void processIncomingVehicle() {
         try{
             ParkingSpot parkingSpot = getNextParkingNumberIfAvailable();
@@ -59,6 +60,7 @@ public class ParkingService {
         return inputReaderUtil.readVehicleRegistrationNumber();
     }
 
+    // Attribution d'un place de parking si disponible
     public ParkingSpot getNextParkingNumberIfAvailable(){
         int parkingNumber=0;
         ParkingSpot parkingSpot = null;
@@ -96,7 +98,8 @@ public class ParkingService {
             }
         }
     }
-
+    
+    // sortie du véhicule et règlement
     public void processExitingVehicle() {
         try{
             String vehicleRegNumber = getVehichleRegNumber();

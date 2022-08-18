@@ -19,6 +19,7 @@ public class TicketDAO {
 
     public DataBaseConfig dataBaseConfig = new DataBaseConfig();
 
+    //Enregistrement du ticket dans la BDD
     public boolean saveTicket(Ticket ticket){
         Connection con = null;
         try {
@@ -40,6 +41,7 @@ public class TicketDAO {
         }
     }
 
+    //Récupération des informations des tickets
     public Ticket getTicket(String vehicleRegNumber) {
         Connection con = null;
         Ticket ticket = null;
@@ -69,6 +71,7 @@ public class TicketDAO {
         }
     }
 
+    //Mise à jour des informations des tickets
     public boolean updateTicket(Ticket ticket) {
         Connection con = null;
         try {

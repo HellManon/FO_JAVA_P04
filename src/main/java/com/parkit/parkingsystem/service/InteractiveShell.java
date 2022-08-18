@@ -10,6 +10,7 @@ public class InteractiveShell {
 
     private static final Logger logger = LogManager.getLogger("InteractiveShell");
 
+    // Lancement de l'interface
     public static void loadInterface(){
         logger.info("App initialized!!!");
         System.out.println("Welcome to Parking System!");
@@ -41,7 +42,7 @@ public class InteractiveShell {
             }
         }
     }
-
+    
     private static void loadMenu(){
         System.out.println("Please select an option. Simply enter the number to choose an action");
         System.out.println("1 New Vehicle Entering - Allocate Parking Space");
