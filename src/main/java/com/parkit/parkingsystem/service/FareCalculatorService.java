@@ -34,8 +34,8 @@ public class FareCalculatorService {
 			ticket.setPrice(0);
 		} else {
 			if (ticket.getDiscount() == true) {
-				
-				ticket.setPrice((Math.round((calculation - (calculation * 0.5)) * 100.0) / 100.0));
+				double reduction = calculation * Fare.REDUCTION_POURCENTGAGE /100;
+				ticket.setPrice((Math.round((calculation - reduction) * 100.0) / 100.0));
 			} else {
 				ticket.setPrice(Math.round(calculation * 100.0) / 100.0);
 			}
