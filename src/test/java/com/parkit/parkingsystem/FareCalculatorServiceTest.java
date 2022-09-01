@@ -130,7 +130,7 @@ public class FareCalculatorServiceTest {
 		assertEquals((24 * Fare.CAR_RATE_PER_HOUR), ticket.getPrice());
 	}
 
-	// test 30 minutes gratuites moto
+	
 	@Test
 	public void calculateFareBikeWithHalfHourParkingTime() {
 		Date inTime = new Date();
@@ -145,7 +145,7 @@ public class FareCalculatorServiceTest {
 		assertEquals(0.0, ticket.getPrice());
 	}
 
-	// test 30 minutes gratuites tuture
+
 	@Test
 	public void calculateFareCARWithHalfHourParkingTime() {
 		Date inTime = new Date();
@@ -160,7 +160,7 @@ public class FareCalculatorServiceTest {
 		assertEquals(0.0, ticket.getPrice());
 		
 	}
-	//reduction voiture
+	
 	@Test
 	public void calculateFareCarDiscount() {
 		Date inTime = new Date();
@@ -175,6 +175,23 @@ public class FareCalculatorServiceTest {
 		fareCalculatorService.calculateFare(ticket);
 		double reduction = Fare.REDUCTION_POURCENTGAGE * Fare.CAR_RATE_PER_HOUR /100;
 		double ticketReduction = (Math.round((Fare.CAR_RATE_PER_HOUR - reduction) * 100.0) / 100.0);
+		assertEquals(ticketReduction, ticket.getPrice());
+	}
+	
+	@Test
+	public void calculateFareBikeDiscount() {
+		Date inTime = new Date();
+		inTime.setTime(System.currentTimeMillis() - (60 * 60 * 1000));
+		Date outTime = new Date();
+		ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.BIKE, false);
+
+		ticket.setInTime(inTime);
+		ticket.setOutTime(outTime);
+		ticket.setParkingSpot(parkingSpot);
+		ticket.setDiscount(true);
+		fareCalculatorService.calculateFare(ticket);
+		double reduction = Fare.REDUCTION_POURCENTGAGE * Fare.BIKE_RATE_PER_HOUR /100;
+		double ticketReduction = (Math.round((Fare.BIKE_RATE_PER_HOUR - reduction) * 100.0) / 100.0);
 		assertEquals(ticketReduction, ticket.getPrice());
 	}
 }
