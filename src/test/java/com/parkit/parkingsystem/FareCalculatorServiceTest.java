@@ -17,6 +17,8 @@ public class FareCalculatorServiceTest {
 
     private static FareCalculatorService fareCalculatorService;
     private Ticket ticket;
+    Date inTime = new Date();
+    Date outTime = new Date();
 
     @BeforeAll
     private static void setUp() {
@@ -30,7 +32,7 @@ public class FareCalculatorServiceTest {
 
     @Test
     public void calculateFareCar(){
-        Date inTime = new Date();
+    	Date inTime = new Date();
         inTime.setTime( System.currentTimeMillis() - (  60 * 60 * 1000) );
         Date outTime = new Date();
         ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR,false);
@@ -39,7 +41,8 @@ public class FareCalculatorServiceTest {
         ticket.setOutTime(outTime);
         ticket.setParkingSpot(parkingSpot);
         fareCalculatorService.calculateFare(ticket);
-        assertEquals(ticket.getPrice(), Fare.CAR_RATE_PER_HOUR);
+        double sut = ticket.getPrice();
+        assertEquals(0.75, sut);
     }
 
     @Test
@@ -92,6 +95,7 @@ public class FareCalculatorServiceTest {
         ticket.setInTime(inTime);
         ticket.setOutTime(outTime);
         ticket.setParkingSpot(parkingSpot);
+       
         fareCalculatorService.calculateFare(ticket);
         assertEquals((0.75 * Fare.BIKE_RATE_PER_HOUR), ticket.getPrice() );
     }
@@ -100,14 +104,14 @@ public class FareCalculatorServiceTest {
     public void calculateFareCarWithLessThanOneHourParkingTime(){
         Date inTime = new Date();
         inTime.setTime( System.currentTimeMillis() - (  45 * 60 * 1000) );//45 minutes parking time should give 3/4th parking fare
-        Date outTime = new Date();
+       Date outTime = new Date();
         ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR,false);
 
         ticket.setInTime(inTime);
         ticket.setOutTime(outTime);
         ticket.setParkingSpot(parkingSpot);
         fareCalculatorService.calculateFare(ticket);
-        assertEquals( (0.75 * Fare.CAR_RATE_PER_HOUR) , ticket.getPrice());
+        assertEquals( (0.75 * Fare.CAR_RATE_PER_HOUR) , ticket.getPrice());// probleme
     }
 
     @Test
