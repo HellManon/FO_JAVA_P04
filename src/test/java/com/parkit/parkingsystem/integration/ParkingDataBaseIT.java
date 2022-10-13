@@ -1,11 +1,9 @@
 package com.parkit.parkingsystem.integration;
 
-import com.parkit.parkingsystem.constants.Fare;
 import com.parkit.parkingsystem.dao.ParkingSpotDAO;
 import com.parkit.parkingsystem.dao.TicketDAO;
 import com.parkit.parkingsystem.integration.config.DataBaseTestConfig;
 import com.parkit.parkingsystem.integration.service.DataBasePrepareService;
-import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.model.Ticket;
 import com.parkit.parkingsystem.service.ParkingService;
 import com.parkit.parkingsystem.util.InputReaderUtil;
@@ -19,9 +17,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
-
-import java.sql.Timestamp;
-import java.util.Date;
 
 @ExtendWith(MockitoExtension.class)
 public class ParkingDataBaseIT {
@@ -67,7 +62,6 @@ public class ParkingDataBaseIT {
         assertEquals(false, sut2);
     }
 
-    //TODO: check that the fare generated and out time are populated correctly in the database
     @Test
     public void testParkingLotExit(){
     	
@@ -77,9 +71,6 @@ public class ParkingDataBaseIT {
         parkingService.processExitingVehicle();
         Ticket ticket = ticketDAO.getTicket("ABCDEF");
         assertEquals(0, ticket.getPrice());
-        Date outTime = new Date();
-        Timestamp expectedDate = new Timestamp(1000 * ((outTime.getTime())/1000));
-       // assertEquals(expectedDate, ticket.getOutTime());
     }
 
 }
