@@ -41,7 +41,7 @@ public class TicketDAO {
         }
     }
 
-    //Récupération des informations des tickets
+    
     public Ticket getTicket(String vehicleRegNumber) {
         Connection con = null;
         Ticket ticket = null;

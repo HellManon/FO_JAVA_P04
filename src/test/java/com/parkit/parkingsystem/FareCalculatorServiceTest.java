@@ -145,7 +145,6 @@ public class FareCalculatorServiceTest {
 		assertEquals(0.0, ticket.getPrice());
 	}
 
-
 	@Test
 	public void calculateFareCARWithHalfHourParkingTime() {
 		Date inTime = new Date();
@@ -158,9 +157,8 @@ public class FareCalculatorServiceTest {
 		ticket.setParkingSpot(parkingSpot);
 		fareCalculatorService.calculateFare(ticket);
 		assertEquals(0.0, ticket.getPrice());
-		
 	}
-	
+
 	@Test
 	public void calculateFareCarDiscount() {
 		Date inTime = new Date();
