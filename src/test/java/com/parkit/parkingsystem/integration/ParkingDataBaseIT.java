@@ -18,6 +18,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 @ExtendWith(MockitoExtension.class)
 public class ParkingDataBaseIT {
 
@@ -64,13 +67,16 @@ public class ParkingDataBaseIT {
 
     @Test
     public void testParkingLotExit(){
-    	
     	System.err.println("test exit");
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         parkingService.processIncomingVehicle();
         parkingService.processExitingVehicle();
         Ticket ticket = ticketDAO.getTicket("ABCDEF");
         assertEquals(0, ticket.getPrice());
+        Date outTime = new Date();
+        Timestamp expectedDate = new Timestamp(1000 * ((outTime.getTime())/1000));
+        Date sut = ticket.getOutTime();
+        assertEquals(expectedDate, sut);
     }
 
 }
