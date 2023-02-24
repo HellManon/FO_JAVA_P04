@@ -51,12 +51,7 @@
 			<artifactId>maven-assembly-plugin</artifactId>
 			<version>2.2-beta-5</version>
 		</dependency>
-		<dependency>
-			<groupId>org.jacoco</groupId>
-			<artifactId>jacoco-maven-plugin</artifactId>
-			<version>0.8.6</version>
-			<scope>test</scope>
-		</dependency>
+
 		<dependency>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-project-info-reports-plugin</artifactId>
@@ -98,7 +93,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.22.2</version>
+				<version>3.0.0-M5</version>
 				<configuration>
 					<excludes>
 						<exclude>**/*IT.java</exclude>
@@ -123,42 +118,73 @@
 					</execution>
 				</executions>
 			</plugin>
-
+			<!-- maven site -->
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.8</version>
+				<version>0.8.6</version>
 				<configuration>
 					<excludes>
-						<exclude>com/parkit/parkingsystem/App.java.class</exclude>
-						<exclude>**/InputReaderUtil.java.class</exclude>
-						<exclude>**/dao/**.java.class</exclude>
-						<exclude>com/parkit/parkingsystem//constants/*.java.class</exclude>
+						<exclude>**/parkit/parkingsystem/dao/**</exclude>
+						<exclude>**/parkit/parkingsystem/config/**</exclude>
+						<exclude>**/parkit/parkingsystem/service/InteractiveShell.*</exclude>
 					</excludes>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>jacoco-report</id>
-						<phase>test</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
+        </configuration>
+        <executions>
+            <execution>
+                <id>prepare-agent</id>
+                <goals>
+                    <goal>prepare-agent</goal>
+                </goals>
+            </execution>
+            <execution>
+                <id>jacoco-report</id>
+				<phase>site</phase>
+                <goals>
+                    <goal>report</goal>
+                </goals>
+            </execution>
+        </executions>
+    </plugin>
+    <!-- maven site -->
 			<plugin>
-
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>findbugs-maven-plugin</artifactId>
-				<version>3.0.4</version>
-				
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>4.0.0-M3</version>
 			</plugin>
 		</plugins>
 	</build>
+
+	<!-- Partie pour la génération de site-->
+	<reporting>
+		<!--Pour le rapport SureFire -->
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>3.1.1</version>
+			</plugin>
+			<!-- Pour le rapport findbugs -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>3.0.4</version>
+				<!--  <configuration>
+                      <excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
+                  </configuration> -->
+			</plugin>
+			<!-- Pour le rapport surefire -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.0.0-M5</version>
+			</plugin>
+			<!-- Pour le rapport Jacoco -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.6</version>
+			</plugin>
+		</plugins>
+	</reporting>
 </project>
